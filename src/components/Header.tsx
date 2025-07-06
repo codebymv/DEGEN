@@ -7,6 +7,7 @@ import { Product } from './ProductCard';
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -126,7 +127,15 @@ const Header = ({ cartItemCount, onCartClick, products = [], onProductClick, onA
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-[300px] sm:w-[350px] p-0">
+                <SheetContent 
+                  side="right" 
+                  className="w-[300px] sm:w-[350px] p-0"
+                >
+                  <SheetHeader>
+                    <SheetDescription className="sr-only">
+                      Main navigation menu with links to different sections of the website
+                    </SheetDescription>
+                  </SheetHeader>
                   <div className="p-4 border-b border-pink-100 flex items-center justify-between">
                     <img 
                       src="/7dee3161-37c4-443b-aaa6-9469befd5132.png" 
