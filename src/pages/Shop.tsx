@@ -307,64 +307,77 @@ const Shop = () => {
 
 
       {/* Filters and Search */}
-      <section className="py-8 bg-white/50 backdrop-blur-sm border-b border-pink-100/50">
+      <section className="py-6 sm:py-8 bg-white/50 backdrop-blur-sm border-b border-pink-100/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 w-full">
             {/* Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-700 h-5 w-5" />
-              <Input
-                placeholder="Search products..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-white/80 backdrop-blur-sm border-pink-200/50 focus:border-pink-400"
-              />
+            <div className="w-full lg:max-w-md">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-700 h-5 w-5" />
+                <Input
+                  placeholder="Search products..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 bg-white/80 backdrop-blur-sm border-pink-200/50 focus:border-pink-400"
+                />
+              </div>
             </div>
 
             {/* Filters */}
-            <div className="flex items-center space-x-4">
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-40 bg-white/80 backdrop-blur-sm border-pink-200/50">
-                  <SelectValue placeholder="Category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map(category => (
-                    <SelectItem key={category} value={category}>
-                      {category === 'all' ? 'All Categories' : category}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <div className="w-full lg:w-auto">
+              <div className="grid grid-cols-[1fr_1fr_auto] gap-2 w-full">
+                <div className="flex-1 min-w-0">
+                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                    <SelectTrigger className="w-full bg-white/80 backdrop-blur-sm border-pink-200/50 text-xs sm:text-sm">
+                      <SelectValue placeholder="Category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Categories</SelectItem>
+                      {categories.map((category) => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-40 bg-white/80 backdrop-blur-sm border-pink-200/50">
-                  <SelectValue placeholder="Sort by" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="name">Name</SelectItem>
-                  <SelectItem value="price-low">Price: Low to High</SelectItem>
-                  <SelectItem value="price-high">Price: High to Low</SelectItem>
-                </SelectContent>
-              </Select>
+                <div className="flex-1 min-w-0">
+                  <Select value={sortBy} onValueChange={setSortBy}>
+                    <SelectTrigger className="w-full bg-white/80 backdrop-blur-sm border-pink-200/50 text-xs sm:text-sm">
+                      <SelectValue placeholder="Sort by" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="name">Name</SelectItem>
+                      <SelectItem value="price-asc">Price: Low to High</SelectItem>
+                      <SelectItem value="price-desc">Price: High to Low</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              {/* View Mode Toggle */}
-              <div className="flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-pink-200/50 rounded-lg p-1">
-                <Button
-                  variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('grid')}
-                  className={viewMode === 'grid' ? 'degen-gradient-secondary text-white' : ''}
-                >
-                  <Grid className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={viewMode === 'list' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('list')}
-                  className={viewMode === 'list' ? 'degen-gradient-secondary text-white' : ''}
-                >
-                  <List className="h-4 w-4" />
-                </Button>
+                {/* View Mode Toggle */}
+                <div className="flex justify-end">
+                  <div className="flex items-center bg-white/80 backdrop-blur-sm border border-pink-200/50 rounded-lg p-0.5 w-auto">
+                    <Button
+                      variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                      size="sm"
+                      onClick={() => setViewMode('grid')}
+                      className={`h-8 w-8 p-0 ${viewMode === 'grid' ? 'degen-gradient-secondary text-white' : ''}`}
+                      aria-label="Grid view"
+                    >
+                      <Grid className="h-3.5 w-3.5" />
+                    </Button>
+                    <Button
+                      variant={viewMode === 'list' ? 'default' : 'ghost'}
+                      size="sm"
+                      onClick={() => setViewMode('list')}
+                      className={`h-8 w-8 p-0 ${viewMode === 'list' ? 'degen-gradient-secondary text-white' : ''}`}
+                      aria-label="List view"
+                    >
+                      <List className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
