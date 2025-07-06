@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Search, Menu, User } from 'lucide-react';
+import { ShoppingCart, Search, Menu, User, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import SearchModal from './SearchModal';
 import UserModal from './UserModal';
 import { Product } from './ProductCard';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 interface HeaderProps {
   cartItemCount: number;
@@ -104,53 +111,86 @@ const Header = ({ cartItemCount, onCartClick, products = [], onProductClick, onA
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="md:hidden hover:bg-pink-50 text-slate-700 hover:text-pink-600 transition-all duration-300"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="icon" 
                 className="hidden sm:flex hover:bg-pink-50 text-slate-700 hover:text-pink-600 transition-all duration-300"
                 onClick={handleUserClick}
               >
                 <User className="h-5 w-5" />
               </Button>
-            </div>
-          </div>
-
-          {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className="md:hidden py-4 border-t border-pink-100">
-              <nav className="flex flex-col space-y-2">
-                <a href="/" className="text-slate-700 hover:text-pink-600 font-medium py-2 transition-colors duration-300">Home</a>
-                <a href="/shop" className="text-slate-700 hover:text-pink-600 font-medium py-2 transition-colors duration-300">Shop</a>
-                <a href="/contact" className="text-slate-700 hover:text-pink-600 font-medium py-2 transition-colors duration-300">Contact</a>
-                <div className="flex space-x-4 pt-2">
+              <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+                <SheetTrigger asChild>
                   <Button 
                     variant="ghost" 
-                    size="sm" 
-                    className="hover:bg-pink-50 text-slate-700 hover:text-pink-600 transition-all duration-300"
-                    onClick={handleSearchClick}
+                    size="icon" 
+                    className="md:hidden hover:bg-pink-50 text-slate-700 hover:text-pink-600 transition-all duration-300"
                   >
-                    <Search className="h-4 w-4 mr-2" />
-                    Search
+                    <Menu className="h-5 w-5" />
                   </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="hover:bg-pink-50 text-slate-700 hover:text-pink-600 transition-all duration-300"
-                    onClick={handleUserClick}
-                  >
-                    <User className="h-4 w-4 mr-2" />
-                    Account
-                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[300px] sm:w-[350px] p-0">
+                  <div className="p-4 border-b border-pink-100 flex items-center justify-between">
+                    <img 
+                      src="/7dee3161-37c4-443b-aaa6-9469befd5132.png" 
+                      alt="DEGEN Logo" 
+                      className="h-8 w-auto rounded-md"
+                      style={{ filter: 'brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(320deg) brightness(104%) contrast(97%)' }}
+                    />
+                    <SheetTitle className="text-lg font-semibold text-slate-800 m-0">Menu</SheetTitle>
+                    <div className="w-8"></div> {/* Spacer for alignment */}
+                  </div>
+                      <div className="py-4 px-6 flex flex-col space-y-4">
+                        <a 
+                          href="/" 
+                          className="text-slate-700 hover:text-pink-600 font-medium py-2 transition-colors duration-300 border-b border-pink-50"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Home
+                        </a>
+                        <a 
+                          href="/shop" 
+                          className="text-slate-700 hover:text-pink-600 font-medium py-2 transition-colors duration-300 border-b border-pink-50"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Shop
+                        </a>
+                        <a 
+                          href="/contact" 
+                          className="text-slate-700 hover:text-pink-600 font-medium py-2 transition-colors duration-300 border-b border-pink-50"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Contact
+                        </a>
+                        <div className="flex space-x-4 pt-4">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="flex-1 hover:bg-pink-50 text-slate-700 hover:text-pink-600 transition-all duration-300 border-pink-100"
+                            onClick={() => {
+                              setIsMenuOpen(false);
+                              handleSearchClick();
+                            }}
+                          >
+                            <Search className="h-4 w-4 mr-2" />
+                            Search
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="flex-1 hover:bg-pink-50 text-slate-700 hover:text-pink-600 transition-all duration-300 border-pink-100"
+                            onClick={() => {
+                              setIsMenuOpen(false);
+                              handleUserClick();
+                            }}
+                          >
+                            <User className="h-4 w-4 mr-2" />
+                            Account
+                          </Button>
+                        </div>
+                      </div>
+                    </SheetContent>
+                  </Sheet>
                 </div>
-              </nav>
+              </div>
             </div>
-          )}
-        </div>
       </header>
 
       {/* Search Modal */}

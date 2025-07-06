@@ -120,42 +120,51 @@ const ProductCard = ({ product, onAddToCart, onProductClick, viewMode }: {
   if (viewMode === 'list') {
     return (
       <Card className="group cursor-pointer overflow-hidden transition-all duration-500 hover:shadow-2xl degen-hover-lift border-0 degen-gradient-card backdrop-blur-sm degen-cyber-glow">
-        <CardContent className="p-6">
-          <div className="flex items-center space-x-6" onClick={() => onProductClick(product)}>
-            <div className="w-24 h-24 overflow-hidden rounded-lg flex-shrink-0">
+        <CardContent className="p-2 sm:p-6">
+          <div className="flex items-center gap-2 sm:gap-6 w-full" onClick={() => onProductClick(product)}>
+            <div className="w-14 h-14 sm:w-24 sm:h-24 overflow-hidden rounded-lg flex-shrink-0">
               <img
                 src={product.image}
                 alt={product.name}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
             </div>
-            <div className="flex-1">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-slate-700 hover:text-pink-600 bg-slate-50 hover:bg-pink-50 px-3 py-1 rounded-full transition-all duration-300">
+            <div className="flex-1 min-w-0 sm:min-w-auto">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 sm:mb-2 gap-1 sm:gap-4">
+                <span className="text-[10px] sm:text-sm font-medium text-slate-700 hover:text-pink-600 bg-slate-50 hover:bg-pink-50 px-1.5 sm:px-3 py-0.5 rounded-full transition-all duration-300 whitespace-nowrap truncate">
                   {product.category}
                 </span>
-                <span className="text-xl font-bold degen-text-gradient">
+                <span className="text-sm sm:text-xl font-bold degen-text-gradient whitespace-nowrap">
                   ${product.price}
                 </span>
               </div>
-              <h3 className="font-bold text-lg text-slate-700 hover:text-pink-600 mb-2 transition-all duration-300">
+              <h3 className="font-bold text-xs sm:text-lg text-slate-700 hover:text-pink-600 mb-1 sm:mb-4 transition-all duration-300 truncate">
                 {product.name}
               </h3>
-              {/* <p className="text-slate-600 text-sm leading-relaxed line-clamp-2">
-                {product.description}
-              </p> */}
             </div>
-            <div className="flex-shrink-0">
+            <div className="hidden sm:flex flex-shrink-0">
               <Button 
                 onClick={(e) => {
                   e.stopPropagation();
                   onAddToCart(product);
                 }}
-                className="degen-gradient-secondary hover:shadow-lg hover:shadow-cyan-500/25 text-white transition-all duration-300 font-semibold px-6 degen-hover-lift"
+                className="text-sm degen-gradient-secondary hover:shadow-lg hover:shadow-cyan-500/25 text-white transition-all duration-300 font-semibold px-4 py-2 h-9 degen-hover-lift whitespace-nowrap"
               >
                 Add to Cart
               </Button>
             </div>
+          </div>
+          <div className="sm:hidden w-full mt-2">
+            <Button 
+              onClick={(e) => {
+                e.stopPropagation();
+                onAddToCart(product);
+              }}
+              size="sm"
+              className="w-full text-[10px] degen-gradient-secondary hover:shadow-lg hover:shadow-cyan-500/25 text-white transition-all duration-300 font-semibold px-2 py-1 h-7 degen-hover-lift whitespace-nowrap"
+            >
+              Add to Cart
+            </Button>
           </div>
         </CardContent>
       </Card>
